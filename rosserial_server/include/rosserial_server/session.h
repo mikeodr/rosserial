@@ -109,6 +109,7 @@ public:
     callbacks_[rosserial_msgs::TopicInfo::ID_TIME]
         = boost::bind(&Session::handle_time, this, _1);
 
+    ROS_ERROR("MIKE SETTING TRUE!.");
     active_ = true;
     attempt_sync();
     read_sync_header();
@@ -315,7 +316,7 @@ private:
 
   void sync_timeout(const boost::system::error_code& error) {
     if (error != boost::asio::error::operation_aborted) {
-      ROS_DEBUG("Sync with device lost.");
+      ROS_ERROR("Sync with device lost.");
       stop();
     }
   }

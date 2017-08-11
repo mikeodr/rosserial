@@ -70,6 +70,13 @@ public:
     client_endpoint_ = client_endpoint;
   }
 
+  void close()
+  {
+    boost::system::error_code ec;
+    this->get_service().close(this->get_implementation(), ec);
+    boost::asio::detail::throw_error(ec, "close");
+  }
+
   template <typename ConstBufferSequence, typename WriteHandler>
   BOOST_ASIO_INITFN_RESULT_TYPE(WriteHandler,
       void (boost::system::error_code, std::size_t))

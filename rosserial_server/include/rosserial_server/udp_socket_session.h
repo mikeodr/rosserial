@@ -67,8 +67,15 @@ private:
   {
     if (!is_active())
     {
-      socket().open(server_endpoint_, client_endpoint_);
-      start();
+      try
+      {
+        socket().open(server_endpoint_, client_endpoint_);
+        start();
+      }
+      catch (std::exception &e)
+      {
+         ROS_FATAL_STREAM("FAILED TO BIND: " << e.what());
+      }
     }
 
     // Every second, check again if the connection should be reinitialized,
